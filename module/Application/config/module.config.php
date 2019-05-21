@@ -5,6 +5,7 @@ namespace Hotel\Application;
 
 
 use Hotel\Application\Controller\ApartmentsController;
+use Hotel\Application\Controller\ReservationsController;
 use Hotel\Application\Listener\ApiProblemListener;
 use Hotel\Application\Listener\ConnectionListener;
 use Hotel\Application\Listener\ExceptionListener;
@@ -15,7 +16,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router'          => [
         'routes' => [
-            'application' => [
+            'apartments' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/apartments',
@@ -24,11 +25,21 @@ return [
                     ],
                 ],
             ],
+            'reservations' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/reservations[/:id]',
+                    'defaults' => [
+                        'controller' => ReservationsController::class,
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers'     => [
         'factories' => [
             ApartmentsController::class => InvokableFactory::class,
+            ReservationsController::class => InvokableFactory::class,
         ],
     ],
     'service_manager' => [

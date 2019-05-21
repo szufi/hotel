@@ -1,0 +1,171 @@
+{
+	"info": {
+		"name": "Hotel",
+		"_postman_id": "99d270d6-3e07-62f8-5626-9643eb3a105f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Reservations",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apartment_id\": \"8dfe7402-4275-4a81-97f0-93450678d4c6\",\n   \n    \"date_start\": \"2019-01-01T00:00:00+00\",\n    \"date_end\": \"2019-02-01T00:00:00+00\",\n    \n    \"first_name\": \"Jan\",\n    \"last_name\": \"Kowalski\",\n    \"email\": \"jan.kowalski@test.pl\"\n}"
+						},
+						"url": {
+							"raw": "localhost:80/reservations",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"reservations"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"PAID\"\n}"
+						},
+						"url": {
+							"raw": "localhost:80/reservations/7c792e83-d59c-4afd-b121-54ad13326c1c",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"reservations",
+								"7c792e83-d59c-4afd-b121-54ad13326c1c"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"appartment_id\": \"46c8184b-72f4-48e5-9821-bea4012e823e\",\n   \n    \"start_date\": \"2019-01-01T00:00:00+00\",\n    \"end_date\": \"2019-02-01T00:00:00+00\",\n    \n    \"first_name\": \"Jan\",\n    \"last_name\": \"Kowalski\",\n    \"email\": \"jan.kowalski@test.pl\"\n}"
+						},
+						"url": {
+							"raw": "localhost:80/reservations/7c792e83-d59c-4afd-b121-54ad13326c1c",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"reservations",
+								"7c792e83-d59c-4afd-b121-54ad13326c1c"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appartments",
+			"description": "",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\":3,\n    \"description\": \"This is desc\",\n    \"rooms_count\": 2,\n\n    \"price\": 100\n}"
+						},
+						"url": {
+							"raw": "localhost:80/apartments",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"apartments"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET-ALL",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\":3,\n    \"description\": \"This is desc\",\n    \"rooms_count\": 2,\n\n    \"price\": 100\n}"
+						},
+						"url": {
+							"raw": "localhost:80/apartments?filter={\"date_start\": \"2019-01-01\", \"date_end\": \"2019-01-02\" }",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"apartments"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"date_start\": \"2019-01-01\", \"date_end\": \"2019-01-02\" }",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

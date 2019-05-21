@@ -35,4 +35,19 @@ class Apartment extends Model
             }
         )->exists();
     }
+
+    public static function findAllAvailable(string $start, string $end)
+    {
+        $reservations = Reservation::findAllByPeriod($start, $end);
+
+        foreach ($reservations as $reservation) {
+            $ids[$reservation->apartment_id] = true;
+        }
+
+        if(!isset($ids)) {
+            return Apartment::all();
+        }
+
+        return static::{'whereNotIn'}('id', array_keys($ids ?? []))->get();
+    }
 }

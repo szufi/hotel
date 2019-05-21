@@ -6,6 +6,7 @@ namespace Hotel\Application\Controller;
 
 use Hotel\Application\Exception\ApiProblemException;
 use Hotel\Application\Model\Apartment;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
@@ -27,7 +28,18 @@ class ApartmentsController extends AbstractRestfulController
 
     public function getList()
     {
-        $collection = Apartment::all();
+        /** @var Request $request */
+        $request = $this->getRequest();
+        $filter  = $request->getQuery('filter', []);
+
+        if (empty($filter)) {
+            return new JsonModel(
+                Apartment::all()->toArray()
+            );
+        }
+
+        $filter     = json_decode($filter, true);
+        $collection = Apartment::findAllAvailable($filter['date_start'], $filter['date_end']);
 
         return new JsonModel(
             $collection->toArray()

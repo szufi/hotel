@@ -1,18 +1,20 @@
 {
-    "name": "Hotel App - University Project",
-    "authors": [
-        {
-            "name": "Kamil Sajdak"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Hotel\\Application\\": "module\\Application\\src\\"
-        }
-    },
-    "require": {
-        "zendframework/zend-mvc": "3.1.1",
-        "ramsey/uuid": "3.8.0",
-        "illuminate/database": "5.8.15"
+  "name": "Hotel App - University Project",
+  "authors": [
+    {
+      "name": "Kamil Sajdak"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Hotel\\Application\\": "module\\Application\\src\\"
+    }
+  },
+  "require": {
+    "ext-json": "*",
+
+    "ramsey/uuid": "3.8.0",
+    "illuminate/database": "5.8.15",
+    "zendframework/zend-mvc": "3.1.1"
+  }
 }
