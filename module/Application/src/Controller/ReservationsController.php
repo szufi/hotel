@@ -6,6 +6,7 @@ namespace Hotel\Application\Controller;
 
 
 use Hotel\Application\Exception\ApiProblemException;
+use Hotel\Application\Model\Apartment;
 use Hotel\Application\Model\Exception\UserNotExists;
 use Hotel\Application\Model\Reservation;
 use Hotel\Application\Model\User;
@@ -18,6 +19,16 @@ class ReservationsController extends AbstractRestfulController
 {
     public function create($data): ViewModel
     {
+        if (!Apartment::{'find'}($data['apartment_id'])) {
+            throw new ApiProblemException('Apartment not exists', 404);
+        }
+
+        if (!Reservation::isAvailable(
+            $data['apartment_id'], $data['date_start'], $data['date_end'])
+        ) {
+            throw new ApiProblemException('Apartment is not available in provided period', 409);
+        }
+
         try {
             $user = User::findByEmail($data['email']);
         } catch (UserNotExists $exception) {
@@ -25,17 +36,7 @@ class ReservationsController extends AbstractRestfulController
         }
 
         $data['user_id'] = $user->getAttribute('id');
-
-        if (!Reservation::isAvailable(
-            $data['apartment_id'],
-
-            $data['date_start'],
-            $data['date_end'])
-        ) {
-            throw new ApiProblemException('Apartment is not available in provided period', 409);
-        }
-
-        $reservation = Reservation::fromArray($data);
+        $reservation     = Reservation::fromArray($data);
 
         return new JsonModel(
             $reservation->toArray()

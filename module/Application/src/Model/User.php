@@ -21,8 +21,10 @@ class User extends Model
     {
         $user = new self();
 
-        $user->attributes['id']    = Uuid::uuid4()->toString();
-        $user->attributes['email'] = $data['email'];
+        $user->attributes['id'] = Uuid::uuid4()->toString();
+
+        $user->attributes['email']     = $data['email'];
+        $user->attributes['telephone'] = $data['telephone'];
 
         $user->attributes['first_name'] = $data['first_name'];
         $user->attributes['last_name']  = $data['last_name'];

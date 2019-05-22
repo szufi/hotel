@@ -19,8 +19,15 @@ class Apartment extends Model
     {
         $apartment = new self();
 
-        $apartment->attributes       = $data;
         $apartment->attributes['id'] = Uuid::uuid4()->toString();
+
+        $apartment->attributes['type']        = $data['type'];
+        $apartment->attributes['description'] = $data['description'];
+
+        $apartment->attributes['number']      = $data['number'];
+        $apartment->attributes['rooms_count'] = $data['rooms_count'];
+
+        $apartment->attributes['price'] = $data['price'];
 
         return $apartment;
     }
@@ -44,10 +51,21 @@ class Apartment extends Model
             $ids[$reservation->apartment_id] = true;
         }
 
-        if(!isset($ids)) {
+        if (!isset($ids)) {
             return Apartment::all();
         }
 
-        return static::{'whereNotIn'}('id', array_keys($ids ?? []))->get();
+        $collection = static::{'whereNotIn'}('id', array_keys($ids ?? []))->get();
+
+        $start = new \DateTime($start);
+        $end   = new \DateTime($end);
+
+        $days  = (int)$end->diff($start)->format('%d');
+
+        foreach ($collection as $apartment) {
+            $apartment->price *= $days;
+        }
+
+        return $collection;
     }
 }

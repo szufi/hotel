@@ -6,56 +6,58 @@ namespace Hotel\Application;
 
 use Hotel\Application\Controller\ApartmentsController;
 use Hotel\Application\Controller\ReservationsController;
+use Hotel\Application\InputFilter\Apartment\CreateApartmentInputFilter;
+use Hotel\Application\InputFilter\Apartment\GetApartmentInputFilter;
+use Hotel\Application\InputFilter\Reservation\CreateReservationInputFilter;
+use Hotel\Application\InputFilter\Reservation\UpdateReservationInputFilter;
 use Hotel\Application\Listener\ApiProblemListener;
 use Hotel\Application\Listener\ConnectionListener;
 use Hotel\Application\Listener\ExceptionListener;
 use Hotel\Application\Listener\Factory\ConnectionListenerFactory;
-use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
-    'router'          => [
-        'routes' => [
-            'apartments' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/apartments',
-                    'defaults' => [
-                        'controller' => ApartmentsController::class,
-                    ],
-                ],
-            ],
-            'reservations' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/reservations[/:id]',
-                    'defaults' => [
-                        'controller' => ReservationsController::class,
-                    ],
-                ],
-            ],
+    'router'                => require_once __DIR__ . '\router.config.php',
+    'controllers'           => [
+        'invokables' => [
+            ApartmentsController::class,
+            ReservationsController::class,
         ],
     ],
-    'controllers'     => [
-        'factories' => [
-            ApartmentsController::class => InvokableFactory::class,
-            ReservationsController::class => InvokableFactory::class,
+    'service_manager'       => [
+        'factories'  => [
+            ConnectionListener::class => ConnectionListenerFactory::class,
         ],
-    ],
-    'service_manager' => [
-        'factories' => [
-            ApiProblemListener::class => InvokableFactory::class,
-            ExceptionListener::class  => InvokableFactory::class,
-            ConnectionListener::class => ConnectionListenerFactory::class
+        'invokables' => [
+            ApiProblemListener::class,
+            ExceptionListener::class,
         ]
     ],
-    'listeners'       => [
+    'zf-content-validation' => [
+        ApartmentsController::class   => [
+            'POST' => CreateApartmentInputFilter::class,
+            'GET'  => GetApartmentInputFilter::class,
+        ],
+        ReservationsController::class => [
+            'POST' => CreateReservationInputFilter::class,
+            'PUT'  => UpdateReservationInputFilter::class
+        ]
+    ],
+    'input_filters'         => [
+        'invokables' => [
+            GetApartmentInputFilter::class,
+            CreateApartmentInputFilter::class,
+
+            CreateReservationInputFilter::class,
+            UpdateReservationInputFilter::class
+        ]
+    ],
+    'listeners'             => [
         ApiProblemListener::class,
         ExceptionListener::class,
         ConnectionListener::class
     ],
-    'view_manager'    => [
-        'strategies' => [
+    'view_manager'          => [
+        'strategies'         => [
             'ViewJsonStrategy',
         ],
         'display_exceptions' => false,
