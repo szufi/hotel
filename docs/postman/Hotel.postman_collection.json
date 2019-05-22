@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"apartment_id\": \"8dfe7402-4275-4a81-97f0-93450678d4c6\",\n   \n    \"date_start\": \"2019-01-01T00:00:00+00\",\n    \"date_end\": \"2019-02-01T00:00:00+00\",\n    \n    \"first_name\": \"Jan\",\n    \"last_name\": \"Kowalski\",\n    \"email\": \"jan.kowalski@test.pl\"\n}"
+							"raw": "{\n    \"apartment_id\": \"46c8184b-72f4-48e5-9821-bea4012e823e\",\n   \n    \"date_start\": \"2020-01-01\",\n    \"date_end\": \"2020-02-01\",\n    \n    \"first_name\": \"Jan\",\n    \"last_name\": \"Kowalski\",\n    \n    \"email\": \"jan.kowalski@test.pl\",\n    \"telephone\": \"7567567\"\n}"
 						},
 						"url": {
 							"raw": "localhost:80/reservations",
@@ -114,7 +114,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"number\":3,\n    \"description\": \"This is desc\",\n    \"rooms_count\": 2,\n\n    \"price\": 100\n}"
+							"raw": "{\n    \"type\": \"STANDARD\",\n    \"description\": \"This asdasd\",\n\n\t\"number\":3,\n    \"rooms_count\": 2,\n\n    \"price\": 11\n\n}"
 						},
 						"url": {
 							"raw": "localhost:80/apartments",
@@ -145,7 +145,7 @@
 							"raw": "{\n    \"number\":3,\n    \"description\": \"This is desc\",\n    \"rooms_count\": 2,\n\n    \"price\": 100\n}"
 						},
 						"url": {
-							"raw": "localhost:80/apartments?filter={\"date_start\": \"2019-01-01\", \"date_end\": \"2019-01-02\" }",
+							"raw": "localhost:80/apartments?filter={\"date_start\": \"2019-01-01\", \"date_end\": \"2019-01-04\" }",
 							"host": [
 								"localhost"
 							],
@@ -156,7 +156,7 @@
 							"query": [
 								{
 									"key": "filter",
-									"value": "{\"date_start\": \"2019-01-01\", \"date_end\": \"2019-01-02\" }",
+									"value": "{\"date_start\": \"2019-01-01\", \"date_end\": \"2019-01-04\" }",
 									"equals": true
 								}
 							]
