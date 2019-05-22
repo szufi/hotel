@@ -1,4 +1,4 @@
--- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for Win32 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.37-MariaDB, for Win32 (AMD64)
 --
 -- Host: localhost    Database: hotel
 -- ------------------------------------------------------
@@ -24,8 +24,9 @@ DROP TABLE IF EXISTS `apartments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `apartments` (
   `id` char(36) NOT NULL,
-  `number` int(11) NOT NULL,
+  `type` enum('STANDARD','LUXURY','ECONOMIC') NOT NULL,
   `description` longtext NOT NULL,
+  `number` int(11) NOT NULL,
   `rooms_count` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -37,8 +38,11 @@ CREATE TABLE `apartments` (
 -- Dumping data for table `apartments`
 --
 
+LOCK TABLES `apartments` WRITE;
 /*!40000 ALTER TABLE `apartments` DISABLE KEYS */;
+INSERT INTO `apartments` VALUES ('','STANDARD','This is desc',7,2,100),('46c8184b-72f4-48e5-9821-bea4012e823e','STANDARD','This is desc',2,2,100),('8dfe7402-4275-4a81-97f0-93450678d4c6','STANDARD','This is desc',1,2,100),('d708322f-0535-46e5-9668-f59ef87fc1dc','STANDARD','This is desc',3,2,100);
 /*!40000 ALTER TABLE `apartments` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `facilities`
@@ -59,8 +63,10 @@ CREATE TABLE `facilities` (
 -- Dumping data for table `facilities`
 --
 
+LOCK TABLES `facilities` WRITE;
 /*!40000 ALTER TABLE `facilities` DISABLE KEYS */;
 /*!40000 ALTER TABLE `facilities` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `reservations`
@@ -91,8 +97,11 @@ CREATE TABLE `reservations` (
 -- Dumping data for table `reservations`
 --
 
+LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
+INSERT INTO `reservations` VALUES ('7c792e83-d59c-4afd-b121-54ad13326c1c','b42ad0d1-e442-4547-9004-6faabfee1948','46c8184b-72f4-48e5-9821-bea4012e823e','2019-01-01 00:00:00','2019-02-01 00:00:00',1,'PAID','2019-05-21 20:32:38'),('aeb546f4-a8e2-4386-90e0-82ca9f487567','b42ad0d1-e442-4547-9004-6faabfee1948','46c8184b-72f4-48e5-9821-bea4012e823e','2020-01-01 00:00:00','2020-02-01 00:00:00',1,'NEW','2019-05-22 22:16:18'),('de487c41-c5c7-483b-9589-cbc3d4b90876','b42ad0d1-e442-4547-9004-6faabfee1948','8dfe7402-4275-4a81-97f0-93450678d4c6','2019-01-01 00:00:00','2019-02-01 00:00:00',1,'NEW','2019-05-21 22:31:44');
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -106,9 +115,11 @@ CREATE TABLE `users` (
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `telephone` varchar(20) NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_id_uindex` (`id`)
+  UNIQUE KEY `users_id_uindex` (`id`),
+  UNIQUE KEY `users_email_uindex` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -116,8 +127,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
+LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('b42ad0d1-e442-4547-9004-6faabfee1948','Jan','Kowalski','jan.kowalski@test.pl','',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -128,4 +142,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-06 21:41:49
+-- Dump completed on 2019-05-22 22:42:12
