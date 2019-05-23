@@ -44,4 +44,19 @@ class User extends Model
 
         return $user->{'first'}();
     }
+
+    public static function findByLoginAndPassword(string $login, string $password): User
+    {
+        $user = static::{'where'}('login', '=', $login)->first();
+
+        if (!$user) {
+            throw new UserNotExists();
+        }
+
+        if (!password_verify($password, $user->password)) {
+            throw new UserNotExists();
+        }
+
+        return $user;
+    }
 }

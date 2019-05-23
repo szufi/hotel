@@ -24,8 +24,9 @@ class LoginController extends AbstractRestfulController
 
     public function create($data)
     {
+
         try {
-            $user = User::findByEmail($data['email']);
+            $user = User::findByLoginAndPassword($data['login'], $data['password']);
         } catch (UserNotExists $exception) {
             throw new ApiProblemException('User not found', 404);
         }
