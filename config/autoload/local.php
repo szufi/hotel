@@ -8,5 +8,9 @@ return [
         'user'    => 'root',
         'pass'    => '',
         'dialect' => 'mysql'
+    ],
+    'jwt'      => [
+        'algorithm' => 'HS256',
+        'key'       => 'secret_key',
     ]
 ];

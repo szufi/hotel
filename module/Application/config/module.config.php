@@ -5,6 +5,8 @@ namespace Hotel\Application;
 
 
 use Hotel\Application\Controller\ApartmentsController;
+use Hotel\Application\Controller\Factory\LoginControllerFactory;
+use Hotel\Application\Controller\LoginController;
 use Hotel\Application\Controller\ReservationsController;
 use Hotel\Application\InputFilter\Apartment\CreateApartmentInputFilter;
 use Hotel\Application\InputFilter\Apartment\GetApartmentInputFilter;
@@ -15,10 +17,15 @@ use Hotel\Application\Listener\ConnectionListener;
 use Hotel\Application\Listener\CorsListener;
 use Hotel\Application\Listener\ExceptionListener;
 use Hotel\Application\Listener\Factory\ConnectionListenerFactory;
+use Hotel\Application\Listener\Factory\ProtectedRouteListenerFactory;
+use Hotel\Application\Listener\ProtectedRouteListener;
 
 return [
     'router'                => require_once __DIR__ . '\router.config.php',
     'controllers'           => [
+        'factories'  => [
+            LoginController::class => LoginControllerFactory::class,
+        ],
         'invokables' => [
             ApartmentsController::class,
             ReservationsController::class,
@@ -26,12 +33,13 @@ return [
     ],
     'service_manager'       => [
         'factories'  => [
-            ConnectionListener::class => ConnectionListenerFactory::class,
+            ConnectionListener::class     => ConnectionListenerFactory::class,
+            ProtectedRouteListener::class => ProtectedRouteListenerFactory::class,
         ],
         'invokables' => [
             CorsListener::class,
-            ApiProblemListener::class,
             ExceptionListener::class,
+            ApiProblemListener::class,
         ]
     ],
     'zf-content-validation' => [
@@ -55,9 +63,10 @@ return [
     ],
     'listeners'             => [
         CorsListener::class,
-        ApiProblemListener::class,
         ExceptionListener::class,
-        ConnectionListener::class
+        ApiProblemListener::class,
+        ConnectionListener::class,
+        ProtectedRouteListener::class
     ],
     'view_manager'          => [
         'strategies'         => [
