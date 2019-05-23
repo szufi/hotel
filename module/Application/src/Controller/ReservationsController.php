@@ -57,6 +57,15 @@ class ReservationsController extends AbstractRestfulController
         );
     }
 
+    public function getList()
+    {
+        $collection = Reservation::all();
+
+        return new JsonModel(
+            $collection->toArray()
+        );
+    }
+
     public function update($id, $data)
     {
         /** @var Reservation|null $reservation */
