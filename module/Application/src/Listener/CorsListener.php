@@ -7,6 +7,7 @@ namespace Hotel\Application\Listener;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 
@@ -21,6 +22,16 @@ class CorsListener extends AbstractListenerAggregate
     {
         /** @var Response $response */
         $response = $event->getResponse();
-        $response->getHeaders()->addHeaderLine('Access-Control-Allow-Origin: *');
+        $headers  = $response->getHeaders();
+
+        $headers->addHeaderLine('Access-Control-Allow-Origin: *');
+        $headers->addHeaderLine('Access-Control-Allow-Methods: PUT, GET, POST, PATCH, DELETE, OPTIONS');
+        $headers->addHeaderLine('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
+
+        /** @var Request $request */
+        $request = $event->getRequest();
+        if ($request->getMethod() === 'OPTIONS') {
+            $response->setStatusCode(200);
+        }
     }
 }
