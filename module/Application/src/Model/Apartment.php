@@ -26,6 +26,7 @@ class Apartment extends Model
 
         $apartment->attributes['number']      = $data['number'];
         $apartment->attributes['rooms_count'] = $data['rooms_count'];
+        $apartment->attributes['beds_count']  = $data['beds_count'];
 
         $apartment->attributes['price'] = $data['price'];
 
@@ -60,7 +61,7 @@ class Apartment extends Model
         $start = new \DateTime($start);
         $end   = new \DateTime($end);
 
-        $days  = (int)$end->diff($start)->format('%d');
+        $days = (int)$end->diff($start)->format('%d');
 
         foreach ($collection as $apartment) {
             $apartment->price *= $days;

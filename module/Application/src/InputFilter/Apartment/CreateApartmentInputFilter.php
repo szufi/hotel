@@ -47,6 +47,13 @@ class CreateApartmentInputFilter extends InputFilter
         $this->add([
             'required'   => true,
             'validators' => [
+                new Digits(),
+            ]
+        ], 'beds_count');
+
+        $this->add([
+            'required'   => true,
+            'validators' => [
                 new Digits()
             ]
         ], 'price');
