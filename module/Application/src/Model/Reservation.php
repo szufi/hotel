@@ -21,9 +21,9 @@ class Reservation extends Model
     {
         $reservation = new self();
 
-        $reservation->attributes['id']      = Uuid::uuid4()->toString();
+        $reservation->attributes['id'] = Uuid::uuid4()->toString();
 
-        $reservation->attributes['user_id'] = $data['user_id'];
+        $reservation->attributes['user_id']      = $data['user_id'];
         $reservation->attributes['apartment_id'] = $data['apartment_id'];
 
         $reservation->attributes['date_start'] = $data['date_start'];
@@ -51,7 +51,8 @@ class Reservation extends Model
         )->exists();
     }
 
-    public static function findAllByPeriod(string $start, string $end) {
+    public static function findAllByPeriod(string $start, string $end)
+    {
         return static::{'where'}(
             function (Builder $query) use ($start, $end) {
                 return $query
@@ -65,5 +66,10 @@ class Reservation extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function apartment(): BelongsTo
+    {
+        return $this->belongsTo(Apartment::class);
     }
 }

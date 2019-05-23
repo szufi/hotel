@@ -10,6 +10,7 @@ use Hotel\Application\Model\Apartment;
 use Hotel\Application\Model\Exception\UserNotExists;
 use Hotel\Application\Model\Reservation;
 use Hotel\Application\Model\User;
+use Illuminate\Database\Eloquent\Builder;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -59,10 +60,12 @@ class ReservationsController extends AbstractRestfulController
 
     public function getList()
     {
-        $collection = Reservation::all();
+        /** @var Builder $collection */
+        $collection = Reservation::{'with'}('apartment', 'user');
+        $collection = $collection->get();
 
         return new JsonModel(
-            $collection->toArray()
+            $collection->{'toArray'}()
         );
     }
 
