@@ -1,6 +1,6 @@
--- MySQL dump 10.16  Distrib 10.1.37-MariaDB, for Win32 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for Win32 (AMD64)
 --
--- Host: localhost    Database: hotel
+-- Host: localhost    Database: localhost
 -- ------------------------------------------------------
 -- Server version	10.1.26-MariaDB
 
@@ -28,6 +28,7 @@ CREATE TABLE `apartments` (
   `description` longtext NOT NULL,
   `number` int(11) NOT NULL,
   `rooms_count` int(11) NOT NULL,
+  `beds_count` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `apartments_address_uindex` (`number`)
@@ -40,7 +41,7 @@ CREATE TABLE `apartments` (
 
 LOCK TABLES `apartments` WRITE;
 /*!40000 ALTER TABLE `apartments` DISABLE KEYS */;
-INSERT INTO `apartments` VALUES ('','STANDARD','This is desc',7,2,100),('46c8184b-72f4-48e5-9821-bea4012e823e','STANDARD','This is desc',2,2,100),('8dfe7402-4275-4a81-97f0-93450678d4c6','STANDARD','This is desc',1,2,100),('d708322f-0535-46e5-9668-f59ef87fc1dc','STANDARD','This is desc',3,2,100);
+INSERT INTO `apartments` VALUES ('','STANDARD','This is desc',7,2,0,100),('46c8184b-72f4-48e5-9821-bea4012e823e','STANDARD','This is desc',2,2,0,100),('8dfe7402-4275-4a81-97f0-93450678d4c6','STANDARD','This is desc',1,2,0,100),('d708322f-0535-46e5-9668-f59ef87fc1dc','STANDARD','This is desc',3,2,0,100),('f609ee7a-e07e-4e50-83fb-5f3fa6910385','STANDARD','This asdasd',5,2,3,11);
 /*!40000 ALTER TABLE `apartments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,9 +118,12 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `telephone` varchar(20) NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `login` varchar(50) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_id_uindex` (`id`),
-  UNIQUE KEY `users_email_uindex` (`email`)
+  UNIQUE KEY `users_email_uindex` (`email`),
+  UNIQUE KEY `users_login_uindex` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -129,7 +133,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('b42ad0d1-e442-4547-9004-6faabfee1948','Jan','Kowalski','jan.kowalski@test.pl','',0);
+INSERT INTO `users` VALUES ('b42ad0d1-e442-4547-9004-6faabfee1948','Jan','Kowalski','jan.kowalski@test.pl','',1,'admin','$2y$10$6V6Jjm.d7msGMMozdIXVEOSp7meCULfGkszbckfoT9l6LNQXY/806');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -142,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-22 22:42:12
+-- Dump completed on 2019-05-23 22:41:18
