@@ -12,6 +12,7 @@ use Hotel\Application\InputFilter\Reservation\CreateReservationInputFilter;
 use Hotel\Application\InputFilter\Reservation\UpdateReservationInputFilter;
 use Hotel\Application\Listener\ApiProblemListener;
 use Hotel\Application\Listener\ConnectionListener;
+use Hotel\Application\Listener\CorsListener;
 use Hotel\Application\Listener\ExceptionListener;
 use Hotel\Application\Listener\Factory\ConnectionListenerFactory;
 
@@ -28,6 +29,7 @@ return [
             ConnectionListener::class => ConnectionListenerFactory::class,
         ],
         'invokables' => [
+            CorsListener::class,
             ApiProblemListener::class,
             ExceptionListener::class,
         ]
@@ -52,6 +54,7 @@ return [
         ]
     ],
     'listeners'             => [
+        CorsListener::class,
         ApiProblemListener::class,
         ExceptionListener::class,
         ConnectionListener::class
