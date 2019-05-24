@@ -12,5 +12,5 @@ return [
     'jwt'      => [
         'algorithm' => 'HS256',
         'key'       => 'secret_key',
-    ]
+    ],
 ];

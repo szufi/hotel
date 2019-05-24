@@ -17,6 +17,7 @@ use Hotel\Application\Listener\ConnectionListener;
 use Hotel\Application\Listener\CorsListener;
 use Hotel\Application\Listener\ExceptionListener;
 use Hotel\Application\Listener\Factory\ConnectionListenerFactory;
+use Hotel\Application\Listener\Factory\ExceptionListenerFactory;
 use Hotel\Application\Listener\Factory\ProtectedRouteListenerFactory;
 use Hotel\Application\Listener\ProtectedRouteListener;
 
@@ -33,12 +34,12 @@ return [
     ],
     'service_manager'       => [
         'factories'  => [
+            ExceptionListener::class      => ExceptionListenerFactory::class,
             ConnectionListener::class     => ConnectionListenerFactory::class,
             ProtectedRouteListener::class => ProtectedRouteListenerFactory::class,
         ],
         'invokables' => [
             CorsListener::class,
-            ExceptionListener::class,
             ApiProblemListener::class,
         ]
     ],

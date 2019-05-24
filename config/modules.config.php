@@ -9,5 +9,6 @@ return [
     'ZF\ContentValidation',
     'ZF\ContentNegotiation',
 
+    'EnliteMonolog',
     'Hotel\Application',
 ];
