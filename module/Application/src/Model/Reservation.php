@@ -72,4 +72,14 @@ class Reservation extends Model
     {
         return $this->belongsTo(Apartment::class);
     }
+
+    public function hasExpired(): bool
+    {
+        $now       = new \DateTime('now');
+        $createdAt = new \DateTime($this->getAttribute('created_at'));
+
+        $interval = $now->diff($createdAt);
+
+        return $interval->days >= 7;
+    }
 }

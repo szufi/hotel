@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Hotel\Application;
 
 
+use Hotel\Application\Console\Factory\StatusControllerFactory;
+use Hotel\Application\Console\StatusController;
 use Hotel\Application\Controller\ApartmentsController;
 use Hotel\Application\Controller\Factory\LoginControllerFactory;
 use Hotel\Application\Controller\LoginController;
@@ -23,9 +25,25 @@ use Hotel\Application\Listener\ProtectedRouteListener;
 
 return [
     'router'                => require_once __DIR__ . '\router.config.php',
+    'console'               => [
+        'router' => [
+            'routes' => [
+                'foo' => [
+                    'options' => [
+                        'route'    => 'reservations:expire',
+                        'defaults' => [
+                            'controller' => StatusController::class,
+                            'action'     => 'index',
+                        ],
+                    ],
+                ]
+            ],
+        ],
+    ],
     'controllers'           => [
         'factories'  => [
-            LoginController::class => LoginControllerFactory::class,
+            LoginController::class  => LoginControllerFactory::class,
+            StatusController::class => StatusControllerFactory::class,
         ],
         'invokables' => [
             ApartmentsController::class,

@@ -61,10 +61,10 @@ class Apartment extends Model
         $start = new \DateTime($start);
         $end   = new \DateTime($end);
 
-        $days = (int)$end->diff($start)->format('%d');
+        $interval = $end->diff($start);
 
         foreach ($collection as $apartment) {
-            $apartment->price *= $days;
+            $apartment->price *= $interval->days;
         }
 
         return $collection;

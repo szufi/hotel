@@ -10,9 +10,10 @@ use Firebase\JWT\SignatureInvalidException;
 use Hotel\Application\Model\User;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use Zend\Http\Request;
+use Zend\Http\Request as HttpRequest;
 use Zend\Mvc\MvcEvent;
 use Zend\Router\RouteMatch;
+use Zend\Stdlib\RequestInterface;
 use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\ApiProblemResponse;
 
@@ -36,8 +37,12 @@ class ProtectedRouteListener extends AbstractListenerAggregate
 
     public function when(MvcEvent $event)
     {
-        /** @var Request $request */
+        /** @var RequestInterface $request */
         $request = $event->getRequest();
+        if (!$request instanceof HttpRequest) {
+            return null;
+        }
+
         /** @var RouteMatch $routeMatch */
         $routeMatch = $event->getRouteMatch();
 
@@ -83,7 +88,7 @@ class ProtectedRouteListener extends AbstractListenerAggregate
         );
     }
 
-    protected function resolveAction(Request $request, RouteMatch $routeMatch): string
+    protected function resolveAction(HttpRequest $request, RouteMatch $routeMatch): string
     {
         $action = $request->getMethod();
         if ($action !== 'GET') {

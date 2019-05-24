@@ -10,6 +10,8 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
+use Zend\Stdlib\RequestInterface;
+use Zend\Http\Request as HttpRequest;
 
 class CorsListener extends AbstractListenerAggregate
 {
@@ -20,6 +22,12 @@ class CorsListener extends AbstractListenerAggregate
 
     public function when(MvcEvent $event)
     {
+        /** @var RequestInterface $request */
+        $request = $event->getRequest();
+        if (!$request instanceof HttpRequest) {
+            return null;
+        }
+
         /** @var Response $response */
         $response = $event->getResponse();
         $headers  = $response->getHeaders();

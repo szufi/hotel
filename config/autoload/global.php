@@ -7,7 +7,7 @@ use Monolog\Logger;
 
 return [
     'EnliteMonolog' => [
-        'app_log' => [
+        'app_log'     => [
             'handlers' => [
                 'default' => [
                     'name'      => StreamHandler::class,
@@ -17,6 +17,27 @@ return [
                     ],
                     'formatter' => [
                         'name' => JsonFormatter::class
+                    ],
+                ],
+            ],
+        ],
+        'console_log' => [
+            'handlers' => [
+                'default' => [
+                    'name'      => StreamHandler::class,
+                    'args'      => [
+                        'stream' => 'data/log/console.log',
+                        'level'  => Logger::INFO,
+                    ],
+                    'formatter' => [
+                        'name' => JsonFormatter::class
+                    ],
+                ],
+                'console' => [
+                    'name' => StreamHandler::class,
+                    'args' => [
+                        'stream' => 'php://stdout',
+                        'level'  => Logger::INFO,
                     ],
                 ],
             ],

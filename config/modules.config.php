@@ -5,6 +5,7 @@ return [
     'Zend\Router',
     'Zend\Validator',
     'Zend\InputFilter',
+    'Zend\Mvc\Console',
 
     'ZF\ContentValidation',
     'ZF\ContentNegotiation',

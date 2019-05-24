@@ -39,7 +39,6 @@ class ExceptionListener extends AbstractListenerAggregate
         }
 
         $this->logger->error('Unexpected exception occurred', [
-            'time'      => time(),
             'exception' => (string)$exception,
         ]);
 
