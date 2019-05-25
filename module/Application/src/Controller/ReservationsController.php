@@ -85,4 +85,19 @@ class ReservationsController extends AbstractRestfulController
             $reservation->toArray()
         );
     }
+
+    public function delete($id)
+    {
+        /** @var Reservation|null $reservation */
+        $reservation = Reservation::{'find'}($id);
+
+        if (!$reservation) {
+            throw new ApiProblemException('Reservation not found', 404);
+        }
+
+        $reservation->setAttribute('status', 'CANCELLED');
+        $reservation->save();
+
+        return new JsonModel();
+    }
 }

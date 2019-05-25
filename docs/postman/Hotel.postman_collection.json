@@ -106,6 +106,39 @@
 					"response": []
 				},
 				{
+					"name": "CANCEL",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYjQyYWQwZDEtZTQ0Mi00NTQ3LTkwMDQtNmZhYWJmZWUxOTQ4In0.lYxqFG1neV3es8mXbXuveyijsArkZy2HSC2rVF75pH4"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:80/reservations/4ac3d3c0-092d-4ae4-810a-9d15a6619a82",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"reservations",
+								"4ac3d3c0-092d-4ae4-810a-9d15a6619a82"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "GET-ONE",
 					"request": {
 						"method": "GET",
