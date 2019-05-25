@@ -24,7 +24,6 @@ class LoginController extends AbstractRestfulController
 
     public function create($data)
     {
-
         try {
             $user = User::findByLoginAndPassword($data['login'], $data['password']);
         } catch (UserNotExists $exception) {
