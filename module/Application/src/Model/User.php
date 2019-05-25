@@ -59,4 +59,15 @@ class User extends Model
 
         return $user;
     }
+
+    public function toArray()
+    {
+        $user = parent::toArray();
+
+        unset($user['password']);
+        unset($user['login']);
+        unset($user['is_admin']);
+
+        return $user;
+    }
 }

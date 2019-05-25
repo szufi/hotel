@@ -40,7 +40,7 @@ class ReservationsController extends AbstractRestfulController
         $reservation     = Reservation::fromArray($data);
 
         return new JsonModel(
-            $reservation->toArray()
+            array_merge($reservation->toArray(), ['user' => $user->toArray()])
         );
     }
 

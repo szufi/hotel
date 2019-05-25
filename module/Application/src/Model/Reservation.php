@@ -32,7 +32,7 @@ class Reservation extends Model
         $reservation->attributes['price']  = 1;
         $reservation->attributes['status'] = 'NEW';
 
-        $reservation->attributes['created_at'] = new \DateTime('now');
+        $reservation->attributes['created_at'] = (new \DateTime('now'))->format('Y-m-d H:i:s');
 
         $reservation->save();
 
