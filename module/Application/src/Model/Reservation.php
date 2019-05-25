@@ -58,7 +58,7 @@ class Reservation extends Model
                 return $query
                     ->where('date_end', '>', $start)
                     ->where('date_start', '<', $end)
-                    ->where('status', '!=', "CANCELLED");
+                    ->where('status', '!=', "CANCELLED"); //what about expired
             }
         )->get();
     }

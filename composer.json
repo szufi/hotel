@@ -7,7 +7,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Hotel\\Application\\": "module\\Application\\src\\"
+      "Hotel\\Application\\": "module\\Application\\src\\",
+      "Hotel\\Application\\Test\\": "module\\Application\\test\\"
     }
   },
   "require": {
@@ -24,5 +25,8 @@
     "zendframework/zend-i18n": "2.9.0",
     "zfcampus/zf-content-validation": "1.8.0",
     "zendframework/zend-mvc-console": "1.2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7"
   }
 }

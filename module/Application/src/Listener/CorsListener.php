@@ -36,8 +36,6 @@ class CorsListener extends AbstractListenerAggregate
         $headers->addHeaderLine('Access-Control-Allow-Methods: PUT, GET, POST, PATCH, DELETE, OPTIONS');
         $headers->addHeaderLine('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
 
-        /** @var Request $request */
-        $request = $event->getRequest();
         if ($request->getMethod() === 'OPTIONS') {
             $response->setStatusCode(200);
         }
