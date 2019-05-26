@@ -46,7 +46,8 @@ class Reservation extends Model
                 return $query
                     ->where('date_end', '>=', $start)
                     ->where('date_start', '<=', $end)
-                    ->where('apartment_id', '=', $apartmentId);
+                    ->where('apartment_id', '=', $apartmentId)
+                    ->whereNotIn('status', ['CANCELLED', 'EXPIRED']);
             }
         )->exists();
     }
@@ -58,7 +59,7 @@ class Reservation extends Model
                 return $query
                     ->where('date_end', '>', $start)
                     ->where('date_start', '<', $end)
-                    ->where('status', '!=', "CANCELLED"); //what about expired
+                    ->whereNotIn('status', ["CANCELLED", "EXPIRED"]);
             }
         )->get();
     }
