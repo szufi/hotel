@@ -29,11 +29,10 @@ class Reservation extends Model
         $reservation->attributes['date_start'] = $data['date_start'];
         $reservation->attributes['date_end']   = $data['date_end'];
 
-        $reservation->attributes['price']  = 1;
-        $reservation->attributes['status'] = 'NEW';
-
+        $reservation->attributes['status']     = 'NEW';
         $reservation->attributes['created_at'] = (new \DateTime('now'))->format('Y-m-d H:i:s');
 
+        $reservation->setPrice($data['price']);
         $reservation->save();
 
         return $reservation;
@@ -82,5 +81,15 @@ class Reservation extends Model
         $interval = $now->diff($createdAt);
 
         return $interval->days >= 7;
+    }
+
+    protected function setPrice(int $price): void
+    {
+        $start = new \DateTime($this->getAttribute('date_start'));
+        $end   = new \DateTime($this->getAttribute('date_end'));
+
+        $interval = $end->diff($start);
+
+        $this->setAttribute('price', $price * $interval->days);
     }
 }

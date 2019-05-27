@@ -20,7 +20,8 @@ class ReservationsController extends AbstractRestfulController
 {
     public function create($data): ViewModel
     {
-        if (!Apartment::{'find'}($data['apartment_id'])) {
+        $apartment = Apartment::{'find'}($data['apartment_id']);
+        if (!$apartment) {
             throw new ApiProblemException('Apartment not exists', 404);
         }
 
@@ -36,8 +37,10 @@ class ReservationsController extends AbstractRestfulController
             $user = User::fromArray($data);
         }
 
+        $data['price']   = $apartment->price;
         $data['user_id'] = $user->getAttribute('id');
-        $reservation     = Reservation::fromArray($data);
+
+        $reservation = Reservation::fromArray($data);
 
         return new JsonModel(
             array_merge($reservation->toArray(), ['user' => $user->toArray()])
@@ -47,7 +50,7 @@ class ReservationsController extends AbstractRestfulController
     public function get($id): ViewModel
     {
         /** @var Reservation|null $reservation */
-        $reservation = Reservation::{'with'}('user')->find($id);
+        $reservation = Reservation::{'with'}('user', 'apartment')->find($id);
 
         if (!$reservation) {
             throw new ApiProblemException('Reservation not found', 404);
