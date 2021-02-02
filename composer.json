@@ -16,7 +16,7 @@
 
     "ramsey/uuid": "3.8.0",
     "firebase/php-jwt": "5.0.0",
-    "illuminate/database": "5.8.15",
+    "illuminate/database": "6.20.14",
 
     "monolog/monolog": "1.24.0",
     "enlitepro/enlite-monolog": "2.4.0",
